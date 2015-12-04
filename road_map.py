@@ -62,7 +62,7 @@ def get_whole_ways(tags_list, whole_nodes):
             way_id = item[unicode("id")]
             j += 1
             if j % 50 == 0:
-                print way_id + " at " + j + " of " + i
+                print str(way_id) + " at " + str(j) + " of " + str(i)
             nodes_id = item[unicode("nodes")]
             nodes_info = list()
             for node_id in nodes_id:
