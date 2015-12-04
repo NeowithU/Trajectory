@@ -53,11 +53,16 @@ def get_a_node(node_id, whole_nodes):
 
 def get_whole_ways(tags_list, whole_nodes):
     ret_dict = dict()
+    i = 0
+    j = 0
     for item in tags_list:
         ele_type = item[unicode("type")]
+        i += 1
         if ele_type == "way":
             way_id = item[unicode("id")]
-            print way_id
+            j += 1
+            if j % 50 == 0:
+                print way_id + " at " + j + " of " + i
             nodes_id = item[unicode("nodes")]
             nodes_info = list()
             for node_id in nodes_id:
