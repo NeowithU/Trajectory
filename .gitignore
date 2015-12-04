@@ -63,3 +63,6 @@ Figures/*
 
 # Pycharm
 .idea/
+
+# Pyenv virtualenvironment configure file
+.pyenv-version
