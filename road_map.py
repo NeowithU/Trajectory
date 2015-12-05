@@ -56,24 +56,24 @@ def get_whole_ways(tags_list, whole_nodes):
     ret_dict = dict()
     j = 0
     s_time = datetime.datetime.now()
-    with open('whole_ways.log', 'a') as log_file:
-        for item in tags_list:
-            ele_type = item[unicode("type")]
-            if ele_type == "way":
-                way_id = item[unicode("id")]
-                j += 1
-                if j % 100 == 0:
+    for item in tags_list:
+        ele_type = item[unicode("type")]
+        if ele_type == "way":
+            way_id = item[unicode("id")]
+            j += 1
+            if j % 100 == 0:
+                with open('whole_ways.log', 'a') as log_file:
                     e_time = datetime.datetime.now()
                     cost_time = e_time - s_time
                     log = 'The ' + str(j) + 'th way is ' + str(way_id) + " at " + str(cost_time) + '\n'
                     log_file.write(log)
-                nodes_id = item[unicode("nodes")]
-                nodes_info = list()
-                for node_id in nodes_id:
-                    temp_node = get_a_node(node_id=node_id, whole_nodes=whole_nodes)
-                    if temp_node != None:
-                        nodes_info.append(temp_node)
-                ret_dict[way_id] = {"nodes_info": nodes_info}
+            nodes_id = item[unicode("nodes")]
+            nodes_info = list()
+            for node_id in nodes_id:
+                temp_node = get_a_node(node_id=node_id, whole_nodes=whole_nodes)
+                if temp_node != None:
+                    nodes_info.append(temp_node)
+            ret_dict[way_id] = {"nodes_info": nodes_info}
     return ret_dict
 
 # Get intersections
@@ -168,7 +168,7 @@ if __name__ == "__main__":
     # write_json("whole_nodes.txt", whole_nodes)
     # print "write 1"
     tags_list = get_tags_list(raw_data = raw_data)
-    # print "after 2"
+    print "after 2"
     whole_ways = get_whole_ways(tags_list=tags_list, whole_nodes=whole_nodes)
     print "after 3"
     write_json("whole_ways.txt", whole_ways)
