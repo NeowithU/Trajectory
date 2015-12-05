@@ -6,7 +6,6 @@ import sys
 import unicodecsv
 import overpass
 import pickle
-import datetime
 import matplotlib.pyplot as plt
 import numpy as np
 from utilities import read_json, write_json, write_pickle

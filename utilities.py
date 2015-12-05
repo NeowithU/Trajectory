@@ -68,4 +68,7 @@ def remove_duplicate(data):
 if __name__ == "__main__":
     # data = [1,1,1,1,2,3,4,1,4,4,4,5]
     # print remove_duplicate(data)
+    with open('asdf.txt', 'a') as out_file:
+        out_file.write('asdf\n')
+        out_file.write('asdf\n')
     pass
