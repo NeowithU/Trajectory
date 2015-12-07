@@ -174,6 +174,11 @@ if __name__ == "__main__":
         log = 'Getting nodes finished at ' + str(cost_time) + '\n'
         log_file.write(log)
 
+    print "whole nodes:", len(whole_nodes.keys())
+    print "after 1"
+    write_json("whole_nodes.txt", whole_nodes)
+    print "write 1"
+
     s_time = datetime.datetime.now()
     whole_nodes = read_json("whole_nodes.txt")
     with open('test.log', 'a') as log_file:
@@ -182,10 +187,6 @@ if __name__ == "__main__":
         log = 'Reading nodes finished at ' + str(cost_time) + '\n'
         log_file.write(log)
 
-    print "whole nodes:", len(whole_nodes.keys())
-    print "after 1"
-    write_json("whole_nodes.txt", whole_nodes)
-    print "write 1"
 
     tags_list = get_tags_list(raw_data = raw_data)
     print "after 2"

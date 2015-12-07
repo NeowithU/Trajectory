@@ -48,7 +48,7 @@ def get_osm_map(geo_range):
     # response = api.Get(way_query)
     # response = api.Get("/api/interpreter?data=[out:json];(node(bbox);rel(bbox);way(bbox););(._;>;);out;&bbox=121.541368,31.1297119,121.64748,31.169746")
     # response = read_json(SAMPLE_DATA.split('.')[0][3:] + '.json')
-    response = read_json('truncated_la.json')
+    response = read_json('small_area.json')
     # write_json("bbb.json", response)
     way_data = response[unicode("elements")]
     # write_json(get_name_of_map(SAMPLE_DATA), way_data)
