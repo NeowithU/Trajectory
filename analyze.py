@@ -4,6 +4,7 @@ __author__ = 'Neo'
 import os
 import glob
 import pickle
+# import string
 import unicodecsv
 import datetime
 import numpy as np
@@ -94,15 +95,31 @@ def read_data_pickle(file_name, read_dir = TEMP_DIR):
 def read_csv(file_name, read_dir = DATA_DIR):
     os.chdir(DATA_DIR)
     with open(file_name) as csvFile:
-        reader = unicodecsv.reader(csvFile, encoding="gb2312")
+        reader = unicodecsv.reader(csvFile, encoding='gbk')
         i = 0
         for row in reader:
-            print row[0]
-            print row[1]
-            print row[2]
-            i += 1
-            if i >= 10:
-                break
+            # print row[2]
+            test = row[2]
+            test = str(test).decode(encoding='gbk')
+            if test == '上海市奉贤区团青公路':
+                print row[0]
+                print row[1]
+                # print row[2]
+                i += 1
+                if i >= 10:
+                    break
+    os.chdir("..")
+
+def truncate_raw(untruncated_file, truncated_file, read_dir = DATA_DIR):
+    os.chdir(DATA_DIR)
+    with open(truncated_file, 'w') as output:
+        writer = unicodecsv.writer(output, encoding='utf-8')
+        with open(untruncated_file) as input:
+            reader = unicodecsv.reader(input, encoding="utf-8")
+            for row in reader:
+                # print 121.715 <= int(row[0]) <= 121.725
+                if 121.715 <= float(row[0]) <= 121.725 and 30.945 <= float(row[1]) <= 30.955:
+                    writer.writerow(row)
     os.chdir("..")
 
 if __name__ == "__main__":
@@ -110,7 +127,9 @@ if __name__ == "__main__":
     # find_abnormal_data()
     # write_data_pickle("all_ranges.txt", get_all_geo_ranges())
     # read_csv(CSV_FILE)
-    os.chdir(DATA_DIR)
-    convert("location_address.csv", "la.csv")
-    os.chdir("..")
+    # os.chdir(DATA_DIR)
+    # convert("location_address.csv", "la.csv")
+    # os.chdir("..")
+    truncate_raw('local_with_tag.csv', 'truncated_la.csv')
+    # print '我' == '我'
     pass

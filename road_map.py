@@ -12,7 +12,7 @@ from collections import defaultdict
 DATA_DIR = "Raw"
 TEMP_DIR = "Intermediate"
 # SAMPLE_DATA = "utfB61962.csv"
-SAMPLE_DATA = "la.csv"
+SAMPLE_DATA = "truncated_la.csv"
 
 def get_name_of_map(file_name):
     # return 'map_of_' + file_name.split('.')[0][3:] + '.txt'
@@ -166,7 +166,13 @@ def get_ways_slices_modify(whole_ways, intersect_points):
 
 if __name__ == "__main__":
     raw_data = get_raw_data(SAMPLE_DATA)
-    # whole_nodes = get_whole_nodes(raw_data = raw_data)
+    s_time = datetime.datetime.now()
+    whole_nodes = get_whole_nodes(raw_data = raw_data)
+    with open('test.log', 'a') as log_file:
+        e_time = datetime.datetime.now()
+        cost_time = e_time - s_time
+        log = 'Getting nodes finished at ' + str(cost_time) + '\n'
+        log_file.write(log)
 
     s_time = datetime.datetime.now()
     whole_nodes = read_json("whole_nodes.txt")
@@ -176,19 +182,32 @@ if __name__ == "__main__":
         log = 'Reading nodes finished at ' + str(cost_time) + '\n'
         log_file.write(log)
 
-    # print "whole nodes:", len(whole_nodes.keys())
-    # print "after 1"
-    # write_json("whole_nodes.txt", whole_nodes)
-    # print "write 1"
+    print "whole nodes:", len(whole_nodes.keys())
+    print "after 1"
+    write_json("whole_nodes.txt", whole_nodes)
+    print "write 1"
 
-    # tags_list = get_tags_list(raw_data = raw_data)
+    tags_list = get_tags_list(raw_data = raw_data)
     print "after 2"
 
     whole_ways = read_json("whole_ways.txt")
 
-    # whole_ways = get_whole_ways(tags_list=tags_list, whole_nodes=whole_nodes)
+    s_time = datetime.datetime.now()
+    whole_ways = get_whole_ways(tags_list=tags_list, whole_nodes=whole_nodes)
+    with open('test.log', 'a') as log_file:
+        e_time = datetime.datetime.now()
+        cost_time = e_time - s_time
+        log = 'Getting ways finished at ' + str(cost_time) + '\n'
+        log_file.write(log)
     print "after 3"
-    # write_json("whole_ways.txt", whole_ways)
+
+    s_time = datetime.datetime.now()
+    write_json("whole_ways.txt", whole_ways)
+    with open('test.log', 'a') as log_file:
+        e_time = datetime.datetime.now()
+        cost_time = e_time - s_time
+        log = 'Writing ways finished at ' + str(cost_time) + '\n'
+        log_file.write(log)
     print "write 3"
 
     s_time = datetime.datetime.now()
@@ -198,7 +217,6 @@ if __name__ == "__main__":
         cost_time = e_time - s_time
         log = 'Counting nodes finished at ' + str(cost_time) + '\n'
         log_file.write(log)
-
     print "after 4"
 
     s_time = datetime.datetime.now()
@@ -208,7 +226,6 @@ if __name__ == "__main__":
         cost_time = e_time - s_time
         log = 'Finding inter points finished at ' + str(cost_time) + '\n'
         log_file.write(log)
-
     print "after 5"
 
     s_time = datetime.datetime.now()
