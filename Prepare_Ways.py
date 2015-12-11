@@ -5,7 +5,7 @@ import os
 import datetime
 import utilities as util
 
-INIT_DATA_DIR = "init_data"
+INIT_DATA_DIR = "Raw"
 NODE_DATA = "3p.json"
 WAY_DATA = "3w.json"
 INER_DATA_DIR = "Intermediate"

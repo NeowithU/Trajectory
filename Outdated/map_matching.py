@@ -10,7 +10,6 @@ import unicodecsv
 from utilities import read_json, construct_point
 from osm_map import get_one_geo_range
 
-
 RADIUS = 6371000
 MAXDIST = 10000
 GRID_LEN = 10

@@ -2,7 +2,6 @@ __author__ = 'Fang'
 
 import datetime
 import utilities as util
-from utilities import
 import math
 
 WAY_DATA = "ways_dict"
