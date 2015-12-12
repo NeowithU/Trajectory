@@ -74,9 +74,10 @@ class Map_Match:
             for route in routes:
                 dist = self.__cal_point_route(point, route)
                 if dist < min_dist:
-                    min_route = route
+                    min_route = route.keys()[0]
+                    min_type = route.values()[0]['highway']
                     min_dist = dist
-        return min_route, min_dist
+        return min_route, min_type, min_dist
 
     def __init__(self):
 
@@ -155,8 +156,8 @@ class Map_Match:
         return ret_id
 
     def __cal_point_route(self, point, segment):
-        s_x, s_y = segment["snode"]
-        e_x, e_y = segment["enode"]
+        s_x, s_y = segment.values()[0]["snode"]
+        e_x, e_y = segment.values()[0]["enode"]
         p_x, p_y = self.__get_project_point(point, s_x, s_y, e_x, e_y)
         if (p_x - s_x) * (p_x - e_x) < 0 and (p_y - s_y) * (p_y - e_y) < 0:
             return self.__cal_probe_distance(point["x"], point["y"], p_x, p_y)
