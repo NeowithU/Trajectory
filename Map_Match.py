@@ -38,7 +38,6 @@ class Map_Match:
         # 匹配完在每个csv文件每行末尾增加字段:seg_id,dis
         os.chdir('Raw/' + folder_name)
         for file in os.listdir('.'):
-            # print file
             self.__match_per_freight(file, self.__get_output_file_name(file))
         os.chdir('..')
 
@@ -47,8 +46,8 @@ class Map_Match:
         with open(input_file) as input_csv:
             reader = unicodecsv.reader(input_csv)
             for row in reader:
-                point = self.__construct_point(float(row[LONGITUDE_POSITION_IN_CSV]),
-                                               float(row[LATITUDE_POSITION_IN_CSV]))
+                point = self.__construct_point(float(row[LATITUDE_POSITION_IN_CSV]),
+                                               float(row[LONGITUDE_POSITION_IN_CSV]))
                 matched_segment, segment_type, distance = self.__match_point_naive(point)
                 # print [matched_segment, segment_type, distance]
                 row.extend([matched_segment, segment_type, distance])
@@ -108,7 +107,7 @@ class Map_Match:
     def __get_grids(self):
         self.__grids = utilities.read_json(GRIDE_FILE, INER_DATA_DIR)
 
-    def __find_grid_id(self, y, x):
+    def __find_grid_id(self, x, y):
         loc_x = int((x - self.__min_lat) / STEP)
         if loc_x == self.__num_lat:
             loc_x -= 1
@@ -123,7 +122,7 @@ class Map_Match:
         self.__min_lat, self.__max_lat, self.__min_lon, \
         self.__max_lon, self.__num_lat, self.__num_lon, self.__num_grids = range_of_map
 
-    def __cal_probe_distance(self, s_lon, s_lat, e_lon, e_lat):
+    def __cal_probe_distance(self, s_lat, s_lon, e_lat, e_lon):
         s_lat = math.radians(s_lat)
         s_lon = math.radians(s_lon)
         e_lat = math.radians(e_lat)
