@@ -50,7 +50,7 @@ class Map_Match:
                 point = self.__construct_point(float(row[LONGITUDE_POSITION_IN_CSV]),
                                                float(row[LATITUDE_POSITION_IN_CSV]))
                 matched_segment, segment_type, distance = self.__match_point_naive(point)
-                row.append(matched_segment, segment_type, distance)
+                row.extend([matched_segment, segment_type, distance])
                 rows_list.append(row)
         if not os.path.exists(output_file):
             f = open(output_file, 'w')
