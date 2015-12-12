@@ -73,6 +73,8 @@ if __name__ == "__main__":
     num_lat = int(math.ceil((max_lat - min_lat) / STEP) + 0.1)
     num_lon = int(math.ceil((max_lon - min_lon) / STEP) + 0.1)
     num_grids = num_lat * num_lon
+    map_range = min_lat, max_lat, min_lon, max_lon, num_lat, num_lon, num_grids
+    util.write_json('map_info', INER_DATA_DIR, map_range)
     with open(LOG_FILE, 'a') as log_file:
         e_time = datetime.datetime.now()
         cost_time = e_time - s_time

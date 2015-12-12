@@ -6,13 +6,16 @@ import datetime
 import utilities as util
 
 INIT_DATA_DIR = "Raw"
-NODE_DATA = "3p.json"
+NODE_DATA = "3n.json"
 WAY_DATA = "3w.json"
 INER_DATA_DIR = "Intermediate"
+GEO_RANGE = '116.318,27.147,122.481,35.178'
 LOG_FILE = "Logs/Prepare_ways.log"
 
 def get_nodes():
-    os.chdir(INIT_DATA_DIR)
+    os.chdir(INER_DATA_DIR)
+    if not os.path.exists(NODE_DATA):
+        util.download_map(GEO_RANGE, True)
     with open(NODE_DATA) as data:
         nodes_data = json.load(data)
     os.chdir("..")
@@ -28,6 +31,8 @@ def get_nodes():
 
 def get_ways():
     os.chdir(INIT_DATA_DIR)
+    if not os.path.exists(NODE_DATA):
+        util.download_map(GEO_RANGE, False)
     with open(WAY_DATA) as data:
         ways_data = json.load(data)
     os.chdir("..")

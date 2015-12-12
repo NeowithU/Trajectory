@@ -213,7 +213,8 @@ def match_route_naive(traj, grid_map):
 	ret_route = list()
 	for point in traj:
 		point_id = get_grid_id(point["x"], point["y"], LAT_RANGE, LON_RANGE)
-		neighbor_grid = find_neighbor(point_id, GRID_LEN)
+		neighbor_grid = \
+			(point_id, GRID_LEN)
 		#print "neighbor grid:", neighbor_grid
 		min_dist = MAXDIST
 		min_route = None
