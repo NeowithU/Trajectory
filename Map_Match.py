@@ -70,6 +70,7 @@ class Map_Match:
         neighbor_grid = self.__find_neighbor(point_id)
         min_dist = MAXDIST
         min_route = None
+        min_type = ''
         for grid_id in neighbor_grid:
             routes = self.__grids[str(grid_id)]
             for route in routes:
