@@ -154,8 +154,7 @@ class Map_Match:
             ret_id = self.__find_neighbor_inside(grid_id)
         return ret_id
 
-    def __cal_point_route(self, point, seg_id):
-        segment = self.__grids[seg_id]
+    def __cal_point_route(self, point, segment):
         s_x, s_y = segment["snode"]
         e_x, e_y = segment["enode"]
         p_x, p_y = self.__get_project_point(point, s_x, s_y, e_x, e_y)
