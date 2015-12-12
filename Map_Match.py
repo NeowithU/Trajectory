@@ -73,13 +73,13 @@ class Map_Match:
         min_route = None
         min_type = ''
         for grid_id in neighbor_grid:
-            print grid_id
+            # print grid_id
             routes = self.__grids[str(grid_id)]
-            print routes
+            # print routes
             for route in routes:
-                # print route
+                print route
                 dist = self.__cal_point_route(point, route)
-                # print dist
+                print dist
                 if dist < min_dist:
                     min_route = route.keys()[0]
                     min_type = route.values()[0]['highway']
