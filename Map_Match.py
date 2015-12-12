@@ -47,7 +47,8 @@ class Map_Match:
         with open(input_file) as input_csv:
             reader = unicodecsv.reader(input_csv)
             for row in reader:
-                point = self.__construct_point(row[LONGITUDE_POSITION_IN_CSV], row[LATITUDE_POSITION_IN_CSV])
+                point = self.__construct_point(float(row[LONGITUDE_POSITION_IN_CSV]),
+                                               float(row[LATITUDE_POSITION_IN_CSV]))
                 matched_segment, segment_type, distance = self.__match_point_naive(point)
                 row.append(matched_segment, segment_type, distance)
                 rows_list.append(row)
@@ -65,7 +66,7 @@ class Map_Match:
         return point
 
     def __match_point_naive(self, point):
-        point_id = self.__find_grid_id(float(point["x"]), float(point["y"]))
+        point_id = self.__find_grid_id(point["x"], point["y"])
         neighbor_grid = self.__find_neighbor(point_id)
         min_dist = MAXDIST
         min_route = None
