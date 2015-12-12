@@ -156,8 +156,10 @@ class Map_Match:
         return ret_id
 
     def __cal_point_route(self, point, segment):
-        s_x, s_y = segment.values()[0]["snode"]
-        e_x, e_y = segment.values()[0]["enode"]
+        s_x = float(segment.values()[0]["snode"][0])
+        s_y = float(segment.values()[0]["snode"][1])
+        e_x = float(segment.values()[0]["enode"][0])
+        e_y = float(segment.values()[0]["enode"][1])
         p_x, p_y = self.__get_project_point(point, s_x, s_y, e_x, e_y)
         if (p_x - s_x) * (p_x - e_x) < 0 and (p_y - s_y) * (p_y - e_y) < 0:
             return self.__cal_probe_distance(point["x"], point["y"], p_x, p_y)
