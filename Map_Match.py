@@ -13,7 +13,7 @@ LONGITUDE_POSITION_IN_CSV = 2
 LATITUDE_POSITION_IN_CSV = 3
 
 RADIUS = 6371000
-MAXDIST = 100000
+MAXDIST = 99999999
 STEP = 0.02
 
 class Map_Match:
@@ -123,7 +123,7 @@ class Map_Match:
         self.__min_lat, self.__max_lat, self.__min_lon, \
         self.__max_lon, self.__num_lat, self.__num_lon, self.__num_grids = range_of_map
 
-    def __cal_probe_distance(self, s_lat, s_lon, e_lat, e_lon):
+    def __cal_probe_distance(self, s_lon, s_lat, e_lon, e_lat):
         s_lat = math.radians(s_lat)
         s_lon = math.radians(s_lon)
         e_lat = math.radians(e_lat)
