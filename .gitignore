@@ -60,6 +60,8 @@ target/
 Raw/*
 Intermediate/*
 Figures/*
+Test/*
+Logs/*
 
 # Pycharm
 .idea/
