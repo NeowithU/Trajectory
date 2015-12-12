@@ -40,6 +40,7 @@ class Map_Match:
         for file in os.listdir('.'):
             self.__match_per_freight(file, self.__get_output_file_name(file))
         os.chdir('..')
+        os.chdir('..')
 
     def __match_per_freight(self, input_file, output_file):
         rows_list = []
