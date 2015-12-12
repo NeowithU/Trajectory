@@ -48,8 +48,8 @@ class Map_Match:
             reader = unicodecsv.reader(input_csv)
             for row in reader:
                 point = self.__construct_point(row[LONGITUDE_POSITION_IN_CSV], row[LATITUDE_POSITION_IN_CSV])
-                matched_segment, distance = self.__match_point_naive(point)
-                row.append(matched_segment, distance)
+                matched_segment, segment_type, distance = self.__match_point_naive(point)
+                row.append(matched_segment, segment_type, distance)
                 rows_list.append(row)
         if not os.path.exists(output_file):
             f = open(output_file, 'w')
