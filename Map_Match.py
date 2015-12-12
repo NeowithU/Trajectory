@@ -99,7 +99,7 @@ class Map_Match:
     def __get_grids(self):
         self.__grids = utilities.read_json(GRIDE_FILE, INER_DATA_DIR)
 
-    def __find_grid_id(self, x, y):
+    def __find_grid_id(self, y, x):
         loc_x = int((x - self.__min_lat) / STEP)
         if loc_x == self.__num_lat:
             loc_x -= 1
@@ -128,7 +128,7 @@ class Map_Match:
 
     def __find_neighbor(self, grid_id):
         right_up = self.__num_lon - 1
-        left_down = self.__num_lon * (self.__num_lat-1)
+        left_down = self.__num_lon * (self.__num_lat - 1)
         right_down = self.__num_lon * self.__num_lat - 1
         up = range(1, right_up)
         down = range(left_down + 1, right_down)
@@ -265,6 +265,7 @@ class Map_Match:
 if __name__ == "__main__":
     map_matching = Map_Match()
 
+    utilities.write_log('matching.log', '\n')
     s_time = datetime.datetime.now()
     map_matching.match('B61962')
     e_time = datetime.datetime.now()
