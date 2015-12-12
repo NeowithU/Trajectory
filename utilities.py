@@ -66,3 +66,6 @@ def convert_all(data_dir = DATA_DIR):
         output_name = 'utf' + file
         convert(file, output_name)
     os.chdir("..")
+
+if __name__ == '__main__':
+    convert_all()
