@@ -13,7 +13,7 @@ LONGITUDE_POSITION_IN_CSV = 2
 LATITUDE_POSITION_IN_CSV = 3
 
 RADIUS = 6371000
-MAXDIST = 10000
+MAXDIST = 100000
 STEP = 0.02
 
 class Map_Match:
@@ -50,6 +50,7 @@ class Map_Match:
                 point = self.__construct_point(float(row[LONGITUDE_POSITION_IN_CSV]),
                                                float(row[LATITUDE_POSITION_IN_CSV]))
                 matched_segment, segment_type, distance = self.__match_point_naive(point)
+                print [matched_segment, segment_type, distance]
                 row.extend([matched_segment, segment_type, distance])
                 rows_list.append(row)
         if not os.path.exists(output_file):
@@ -79,6 +80,7 @@ class Map_Match:
                     min_route = route.keys()[0]
                     min_type = route.values()[0]['highway']
                     min_dist = dist
+                    print route
         return min_route, min_type, min_dist
 
     def __init__(self):
