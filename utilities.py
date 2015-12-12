@@ -48,10 +48,10 @@ def download_map(geo_range, download_nodes):
     os.system(command)
 
 def write_log(log_file_name, log_info):
-    os.chdir('Logs')
+    # os.chdir('Logs')
     log = open(log_file_name, 'a')
     log.write(log_info)
-    os.chdir('..')
+    # os.chdir('..')
 
 def convert(input_file, output_file):
     with open(input_file) as in_file:

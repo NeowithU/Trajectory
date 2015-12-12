@@ -9,6 +9,7 @@ import unicodecsv
 
 INER_DATA_DIR = "Intermediate"
 GRIDE_FILE = 'grids_dict'
+TEST_FOLDER = 'B61962'
 LONGITUDE_POSITION_IN_CSV = 2
 LATITUDE_POSITION_IN_CSV = 3
 
@@ -16,6 +17,7 @@ RADIUS = 6371000
 MAXDIST = 99999999
 STEP = 0.02
 
+# Map_Match 只有一个match方法,输入为切割好的轨迹所在文件夹的名称
 class Map_Match:
     __min_lat = 0
     __max_lat = 0
@@ -26,21 +28,38 @@ class Map_Match:
     __num_grids = 0
     __grids = {}
 
-    def __get_output_file_name(self, input_file_name):
-        name = input_file_name.split('.')
-        name[0] += '+'
-        return name[0] + '.' + name[1]
-
+    # 输入是文件夹名称
+    # 文件夹内每个文件是剪好的一条轨迹
+    # 循环打开每个文件,对每个文件做轨迹匹配
+    # 匹配完在每个csv文件每行末尾增加字段:路段名称,道路类型,匹配距离
+    # 路段名称的格式是 分块id_道路id_分块内部序号,其中道路id与osm提供的id是一致的.
     def match(self, folder_name):
-        # 输入是文件夹名称
-        # 文件夹内每个文件是剪好的一条轨迹
-        # 循环打开每个文件,对每个文件做轨迹匹配
-        # 匹配完在每个csv文件每行末尾增加字段:seg_id,dis
         os.chdir('Raw/' + folder_name)
         for file in os.listdir('.'):
             self.__match_per_freight(file, self.__get_output_file_name(file))
         os.chdir('..')
         os.chdir('..')
+
+    def __init__(self):
+
+        s_time = datetime.datetime.now()
+        self.__get_range_of_map()
+        e_time = datetime.datetime.now()
+        cost_time = e_time - s_time
+        log = "get_range_of_map cost %s\n" % str(cost_time)
+        utilities.write_log('matching.log', log)
+
+        s_time = datetime.datetime.now()
+        self.__get_grids()
+        e_time = datetime.datetime.now()
+        cost_time = e_time - s_time
+        log = "get_grids cost %s\n" % str(cost_time)
+        utilities.write_log('matching.log', log)
+
+    def __get_output_file_name(self, input_file_name):
+        name = input_file_name.split('.')
+        name[0] += '+'
+        return name[0] + '.' + name[1]
 
     def __match_per_freight(self, input_file, output_file):
         rows_list = []
@@ -80,24 +99,6 @@ class Map_Match:
                     min_type = route.values()[0]['highway']
                     min_dist = dist
         return min_route, min_type, min_dist
-
-    def __init__(self):
-
-        s_time = datetime.datetime.now()
-        self.__get_range_of_map()
-        e_time = datetime.datetime.now()
-        cost_time = e_time - s_time
-        log = "get_range_of_map cost %s\n" % str(cost_time)
-        utilities.write_log('matching.log', log)
-
-        s_time = datetime.datetime.now()
-        self.__get_grids()
-        e_time = datetime.datetime.now()
-        cost_time = e_time - s_time
-        log = "get_grids cost %s\n" % str(cost_time)
-        utilities.write_log('matching.log', log)
-
-        pass
 
     def __get_grids(self):
         self.__grids = utilities.read_json(GRIDE_FILE, INER_DATA_DIR)
@@ -271,7 +272,7 @@ if __name__ == "__main__":
 
     utilities.write_log('matching.log', '\n')
     s_time = datetime.datetime.now()
-    map_matching.match('B61962')
+    map_matching.match(TEST_FOLDER)
     e_time = datetime.datetime.now()
     cost_time = e_time - s_time
     log = "Map matching cost %s\n" % str(cost_time)
