@@ -50,7 +50,7 @@ class Map_Match:
                 point = self.__construct_point(float(row[LONGITUDE_POSITION_IN_CSV]),
                                                float(row[LATITUDE_POSITION_IN_CSV]))
                 matched_segment, segment_type, distance = self.__match_point_naive(point)
-                print [matched_segment, segment_type, distance]
+                # print [matched_segment, segment_type, distance]
                 row.extend([matched_segment, segment_type, distance])
                 rows_list.append(row)
         if not os.path.exists(output_file):
@@ -73,9 +73,13 @@ class Map_Match:
         min_route = None
         min_type = ''
         for grid_id in neighbor_grid:
+            print grid_id
             routes = self.__grids[str(grid_id)]
+            print routes
             for route in routes:
+                # print route
                 dist = self.__cal_point_route(point, route)
+                # print dist
                 if dist < min_dist:
                     min_route = route.keys()[0]
                     min_type = route.values()[0]['highway']
